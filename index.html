@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <style>
+    body,
+    html {
+      height: 100%;
+      margin: 0;
+    }
+
+    .bg {
+      background-image: url('https://i.ibb.co/p39BCLr/DALL-E-2024-04-21-19-16-27-Create-a-digital-artwork-with-the-same-mystical-and-surreal-ambiance-of-a.webp');
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    @keyframes floating {
+      from {
+        transform: translateY(0px);
+      }
+
+      65% {
+        transform: translateY(15px);
+      }
+
+      to {
+        transform: translateY(0px);
+      }
+    }
+
+    .floating {
+      animation: floating 6s ease-in-out infinite;
+      text-align: center;
+      font-size: 2em;
+      color: white;
+      padding-top: 20%;
+    }
+
+    @keyframes floatIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .floatIn {
+      animation: floatIn 0.5s;
+    }
+
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    nav ul li {
+      display: inline;
+      margin-right: 10px;
+    }
+
+    input,
+    button {
+      margin-top: 10px;
+      display: block;
+      width: 200px;
+      padding: 5px;
+    }
+  </style>
+  <title>Time Crypt</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="javascript:void(0);" id="registerLink">Register</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <h1>Welcome to Time Crypt</h1>
+  </header>
+  <div id="home" class="bg">
+    <div class="floating">Time Crypt</div>
+  </div>
+  <main class="container">
+    <section id="register" class="hidden">
+      <h2>Register Your Time Capsule</h2>
+      <form id="timeCapsuleForm" action="/submit" method="POST">
+        <!-- Step 1: User Registration -->
+        <div class="step" id="step1">
+          <h3>Register</h3>
+          <p>Your contact details are safe with us.</p>
+          <input type="text" id="name" name="name" placeholder="Your Name" required />
+          <input type="email" id="email" name="email" placeholder="Your Email" required />
+          <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required />
+          <button type="button" onclick="nextStep(2)">Next</button>
+        </div>
+        <!-- Step 2: Time Capsule Date Selection -->
+        <div class="step hidden" id="step2">
+          <h3>Open Date</h3>
+          <p>Select the date when you want to open your Time Capsule.</p>
+          <input type="date" id="openDate" name="openDate" required />
+          <button type="button" onclick="prevStep(1)">Back</button>
+          <button type="button" onclick="nextStep(3)">Next</button>
+        </div>
+        <!-- Step 3: Initial Memory Upload -->
+        <div class="step hidden" id="step3">
+          <h3>Upload Memories</h3>
+          <p>Your data is secured with encryption.</p>
+          <input type="file" id="memories" name="memories" multiple required />
+          <button type="button" onclick="prevStep(2)">Back</button>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </section>
+  </main>
+  <footer class="container">
+    <small><a href="#">Privacy Policy</a> • <a href="#">Terms of Use</a></small>
+  </footer>
+  <script>
+    function showStep(step) {
+      const steps = document.querySelectorAll('.step');
+      steps.forEach(s => {s.classList.add('hidden'); s.classList.remove('floatIn');});
+      const currentStep = document.getElementById('step' + step);
+      currentStep.classList.remove('hidden');
+      currentStep.classList.add('floatIn');
+    }
+    function nextStep(step) {showStep(step);}
+    function prevStep(step) {showStep(step);}
+    document.addEventListener('DOMContentLoaded', function () {
+      alert('Welcome to Time Crypt! We are thrilled to have you here.');
+      document.getElementById('registerLink').addEventListener('click', function () {
+        const registerSection = document.querySelector('#register');
+        registerSection.classList.remove('hidden');
+        showStep(1);
+        registerSection.scrollIntoView();
+      });
+    });
+  </script>
+</body>
+
+</html>
